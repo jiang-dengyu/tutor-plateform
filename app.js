@@ -9,6 +9,7 @@ const { pages, apis } = require('./routes')
 const handlebars = require('express-handlebars')
 const session = require('express-session')
 const SESSION_SECRET = 'BIGSECRET'
+
 /***************************************** */
 app.engine('hbs', handlebars({ extname: '.hbs' }))
 app.set('view engine', 'hbs')

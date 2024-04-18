@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -20,8 +20,9 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
-      isAdmin: {
-        type: Sequelize.BOOLEAN
+      is_admin: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
       },
       created_at: {
         allowNull: false,
@@ -34,6 +35,6 @@ module.exports = {
     })
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Users');
+    await queryInterface.dropTable('Users')
   }
-};
+}
