@@ -39,7 +39,11 @@ const userController = {
     return res.render('signIn')
   },
   signIn: (req, res, next) => {
-    return res.send('西西')
+    return res.redirect('/home')
+  },
+  logOut: (req, res) => {
+    req.logout() //passport提供的logout()
+    res.redirect('/signIn')
   }
 }
 /********************************** */
