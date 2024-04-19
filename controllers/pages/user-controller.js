@@ -44,6 +44,11 @@ const userController = {
   logOut: (req, res) => {
     req.logout() //passport提供的logout()
     res.redirect('/signIn')
+  },
+  userPage: (req, res) => {
+    const user = req.user
+    console.log(user)
+    return res.render('profile', { user })
   }
 }
 /********************************** */

@@ -13,6 +13,8 @@ router.post('/signUp', userController.signUp)
 router.get('/signIn', userController.signInPage)
 router.post('/signIn', passport.authenticate('local', { failureRedirect: '/signin', failureFlash: true }), userController.signIn)
 router.get('/logOut', userController.logOut)
+
+router.get('/users/:id', authenticated, userController.userPage)
 router.get('/home', authenticated, lessonController.home)
 router.get('/', (req, res) => res.redirect('/signIn'))
 /******************************************************** */
