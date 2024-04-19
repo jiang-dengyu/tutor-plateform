@@ -1,8 +1,11 @@
 /******************************* */
-const lessonController = {
+const courseController = {
   home: (req, res) => {
     return res.render('home')
+  },
+  applyPage: (req, res) => {
+    return res.render('apply')
   }
 }
 /******************************* */
-module.exports = lessonController
+module.exports = courseController
