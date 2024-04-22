@@ -1,8 +1,15 @@
 const { Course } = require('../../models')
 /******************************* */
 const courseController = {
-  home: (req, res) => {
-    return res.render('home')
+  home: (req, res, next) => {
+    Course.findAll({
+      raw: true
+    })
+      .then((courses) => {
+        console.log('斷點測試', courses)
+        return res.render('home', { courses })
+      })
+      .catch((err) => next(err))
   },
   applyPage: (req, res) => {
     return res.render('apply')
@@ -30,6 +37,18 @@ const courseController = {
     })
       .then((course) => {
         return res.render('teacher', { user, course })
+      })
+      .catch((err) => next(err))
+  },
+  coursePage: (req, res, next) => {
+    const user = req.user
+    const courseId = req.params.id
+    Course.findOne({
+      where: { id: courseId },
+      raw: true
+    })
+      .then((course) => {
+        return res.render('course', { user, course })
       })
       .catch((err) => next(err))
   }

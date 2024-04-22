@@ -16,8 +16,10 @@ router.get('/logOut', userController.logOut)
 
 router.get('/users/:id', authenticated, userController.userPage)
 
+router.get('/course/:id', authenticated, courseController.coursePage)
 router.get('/course', authenticated, courseController.applyPage)
 router.post('/course', authenticated, courseController.apply)
+
 router.get('/teacher/:id', authenticated, courseController.teacherPage)
 router.get('/home', authenticated, courseController.home)
 router.get('/', (req, res) => res.redirect('/home'))
