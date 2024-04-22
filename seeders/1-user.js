@@ -1,69 +1,19 @@
 'use strict'
 const bcrypt = require('bcryptjs')
+const { generateUser } = require('../helpers/seed-helpers.js')
+const users = []
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.bulkInsert(
-      'Users',
-      [
-        {
-          id: 1,
-          email: 'root@example.com',
-          password: await bcrypt.hash('12345678', 10),
-          is_admin: true,
-          name: 'root',
-          created_at: new Date(),
-          updated_at: new Date()
-        },
-        {
-          id: 2,
-          email: 'user1@example.com',
-          password: await bcrypt.hash('12345678', 10),
-          is_admin: false,
-          name: 'user1',
-          created_at: new Date(),
-          updated_at: new Date()
-        },
-        {
-          id: 3,
-          email: 'user2@example.com',
-          password: await bcrypt.hash('12345678', 10),
-          is_admin: false,
-          name: 'user2',
-          created_at: new Date(),
-          updated_at: new Date()
-        },
-        {
-          id: 4,
-          email: 'user3@example.com',
-          password: await bcrypt.hash('12345678', 10),
-          is_admin: false,
-          name: 'user3',
-          created_at: new Date(),
-          updated_at: new Date()
-        },
-        {
-          id: 5,
-          email: 'user4@example.com',
-          password: await bcrypt.hash('12345678', 10),
-          is_admin: false,
-          name: 'user4',
-          created_at: new Date(),
-          updated_at: new Date()
-        },
-        {
-          id: 6,
-          email: 'user5@example.com',
-          password: await bcrypt.hash('12345678', 10),
-          is_admin: false,
-          name: 'user5',
-          created_at: new Date(),
-          updated_at: new Date()
-        }
-      ],
-      {}
-    )
+    const password = await bcrypt.hash('12345678', 10)
+    for (let i = 1; i < 21; i++) {
+      const email = i === 1 ? 'root@example.com' : `user${i}@example.com`
+      const isAdmin = i === 1 ? true : false
+      let newUser = generateUser(i, email, isAdmin, `user${i}`, password)
+      users.push(newUser)
+    }
+    await queryInterface.bulkInsert('Users', users, {})
   },
 
   async down(queryInterface, Sequelize) {

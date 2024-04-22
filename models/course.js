@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
   Course.init(
     {
       name: DataTypes.STRING,
-      introduction: DataTypes.STRING,
+      introduction: DataTypes.TEXT,
       style: DataTypes.STRING,
       dayOfWeek: DataTypes.JSON,
       duration: DataTypes.STRING,
