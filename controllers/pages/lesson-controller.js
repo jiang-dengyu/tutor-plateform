@@ -6,7 +6,6 @@ const courseController = {
       raw: true
     })
       .then((courses) => {
-        console.log('斷點測試', courses)
         return res.render('home', { courses })
       })
       .catch((err) => next(err))
