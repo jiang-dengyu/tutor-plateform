@@ -11,7 +11,6 @@ const inTwoWeeks = (reserveDate) => {
   return result
 }
 const inDayOfWeek = (reserveDate, coursedays) => {
-  console.log(coursedays)
   const reserveDay = dayjs(reserveDate).format('dddd') //使用者輸入的轉換成星期的代號0~6
   const result = coursedays.includes(reserveDay)
   return result
@@ -32,18 +31,17 @@ const isTimeCorrect = (time, duration) => {
     return true
   }
 }
-const existingReservation = (existingDate, existingTime, existingDuration, date, time, duration) => {
-  duration = parseInt(duration)
-  let hours = parseInt(time.split(':')[0]) //取小時的部分
-  let minute = parseInt(time.split(':')[1]) //取分鐘的部分
-  const startDateTime = dayjs(date).set('hour', hours).set('minute', minute)
-  const endDateTime = dayjs(startDateTime)
-  let existingHours = parseInt(dayjs(existingTime).hour()) //取小時的部分
-  let existingMinute = parseInt(dayjs(existingTime).minute()) //取分鐘的部分
-  existingMinute = existingMinute + existingDuration //分鐘加上30/60分鐘，判斷是否進位
-  if (existingMinute >= 60) {
-    existingHours = existingHours + 1
-    existingMinute = existingMinute % 60
+const existingReservation = (existingDate, existingTime, existingDuration, newDate, newTime, newDuration) => {
+  const existingStart = dayjs(`${existingDate} ${existingTime}`) //用dayjs組合成完整 起始時間
+  const existingEnd = existingStart.add(existingDuration, 'minute') //用dayjs組合成完整 結束時間
+
+  const newStart = dayjs(`${newDate} ${newTime}`)
+  const newEnd = newStart.add(newDuration, 'minute')
+
+  if (newStart.isAfter(existingEnd) || newEnd.isBefore(existingStart)) {
+    return false //時段沒交集(重疊)給予false，也就不跑後面的if(result)
+  } else {
+    return true
   }
 }
 /******************************************* */
