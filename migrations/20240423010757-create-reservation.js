@@ -2,7 +2,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('reservations', {
+    await queryInterface.createTable('Reservations', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -17,13 +17,14 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false
       },
-      day_of_week: {
-        type: Sequelize.JSON,
-        allowNull: false
+      date: {
+        type: Sequelize.STRING
       },
-      reserved_time: {
-        type: Sequelize.DATE,
-        allowNull: false
+      time: {
+        type: Sequelize.STRING
+      },
+      duration: {
+        type: Sequelize.STRING
       },
       created_at: {
         allowNull: false,

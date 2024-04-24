@@ -15,8 +15,9 @@ module.exports = (sequelize, DataTypes) => {
     {
       userId: DataTypes.INTEGER,
       coursId: DataTypes.INTEGER,
-      dayOfWeek: DataTypes.JSON,
-      reservedTime: DataTypes.DATE
+      date: DataTypes.STRING,
+      time: DataTypes.STRING,
+      duration: DataTypes.STRING
     },
     {
       sequelize,

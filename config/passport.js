@@ -16,7 +16,6 @@ passport.use(
     (req, email, password, cb) => {
       User.findOne({ where: { email: email } }).then((user) => {
         if (!user) return cb(null, false)
-        console.log(user)
         bcrypt.compare(password, user.password).then((result) => {
           if (!result) return cb(null, false)
           return cb(null, user)
