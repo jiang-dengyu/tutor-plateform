@@ -11,9 +11,9 @@ const inTwoWeeks = (reserveDate) => {
   return result
 }
 const inDayOfWeek = (reserveDate, coursedays) => {
+  console.log(coursedays)
   const reserveDay = dayjs(reserveDate).format('dddd') //使用者輸入的轉換成星期的代號0~6
-  const daysOfWeek = ['Sunday', , 'Tuesday', 'Wednesday', , 'Friday'] //星期日到六
-  const result = daysOfWeek.includes(reserveDay)
+  const result = coursedays.includes(reserveDay)
   return result
 }
 const isTimeCorrect = (time, duration) => {
