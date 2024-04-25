@@ -1,0 +1,43 @@
+<h1>學生看的{{user.email}}課程頁</h1>
+<hr />
+<h3>課程資訊</h3>
+<p>{{course.name}}</p>
+<p>{{course.dayOfWeek}}</p>
+<hr />
+<div class="mb-4 text-center">
+  <h1 class="h3 font-weight-normal mb-3">預約</h1>
+</div>
+<form class="form-reserve" action="/reservation/courses/{{course.id}}" method="POST">
+  <div class="form-row mb-3">
+    <label class="form-label" for="courseName">Course Name</label>
+    <input class="form-control" id="courseName" type="text" name="courseName" class="form-control"
+      placeholder="Course Name" value="{{course.name}}" required autofocus disabled>
+  </div>
+  <div class="form-row mb-3">
+    <label class="form-label" for="date">Reserved Date</label>
+    <small>預約日期範圍兩周內</small>
+    <input class="form-control" id="date" type="date" name="date" class="form-control" placeholder="reservedDate"
+      value="2024-04-26" required autofocus>
+  </div>
+  <div class="form-row mb-3">
+    <label class="form-label" for="time">Reserved Time</label>
+    <small>預約時間為 18pm ~ 21pm</small>
+    <input class="form-control" id="time" type="time" name="time" class="form-control"
+      placeholder="reservedTime" value="18:00" min="18:00" max="21:00" required autofocus><span class="validity"></span>
+  </div>
+  <div class="form-row mb-3">
+    <label class="form-label" for="datetime">Reserved Time</label>
+    <small>預約時間為 18pm ~ 21pm</small>
+    <input class="form-control" id="datetime" type="datetime-local" name="datetime" class="form-control"
+      placeholder="reservedTime" value="2024-04-26T18:30" required autofocus>
+  </div>
+  <div class="form-row mb-3">
+    <label class="form-label" for="duration">課程長度</label>
+    <select class="form-control" id="duration" name="duration" required autofocus>
+      <option value="" selected disabled>請選擇課程長度</option>
+      <option value="30">30 min</option>
+      <option value="60">60 min</option>
+    </select>
+  </div>
+  <button class="btn btn-primary btn-block" type="submit">Submit</button>
+</form>
