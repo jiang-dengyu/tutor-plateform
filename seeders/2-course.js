@@ -16,6 +16,7 @@ module.exports = {
           duration: '',
           class_link: faker.internet.url(),
           user_id: userId,
+          image: `https://loremflickr.com/320/240/people/?random=${Math.random() * 100}`,
           created_at: new Date(),
           updated_at: new Date()
         }

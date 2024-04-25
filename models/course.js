@@ -17,9 +17,9 @@ module.exports = (sequelize, DataTypes) => {
       introduction: DataTypes.TEXT,
       style: DataTypes.STRING,
       dayOfWeek: DataTypes.JSON,
-      duration: DataTypes.STRING,
       classLink: DataTypes.STRING,
-      userId: DataTypes.INTEGER
+      userId: DataTypes.INTEGER,
+      image: DataTypes.STRING
     },
     {
       sequelize,

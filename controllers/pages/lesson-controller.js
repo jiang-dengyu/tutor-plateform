@@ -6,6 +6,7 @@ const courseController = {
       raw: true
     })
       .then((courses) => {
+        console.log(courses)
         return res.render('home', { courses })
       })
       .catch((err) => next(err))
