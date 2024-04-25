@@ -10,10 +10,13 @@ const session = require('express-session')
 const SESSION_SECRET = 'BIGSECRET'
 const { getUser } = require('./helpers/auth-helpers.js')
 const passport = require('./config/passport')
+const methodOverride = reduire('method-override')
 /***************************************** */
 app.engine('hbs', handlebars({ extname: '.hbs' }))
 app.set('view engine', 'hbs')
 /**************************************************** */
+app.use(methodOverride('_method'))
+
 app.use(express.urlencoded({ extended: true }))
 app.use(
   session({
