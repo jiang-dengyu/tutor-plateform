@@ -1,4 +1,5 @@
 const dayjs = require('dayjs')
+const faker = require('faker')
 /*產生隨機dyaOfWeeks陣列↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ */
 const getRandomDays = () => {
   const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'] //星期一到日
@@ -29,7 +30,7 @@ const generateUser = (id, email, isAdmin, name, password) => {
     updated_at: new Date()
   }
 }
-/*回傳History instance物件↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ */
+/*回傳History instance物件陣列↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ */
 const generateHistory = () => {
   const history = []
   let id = 1
@@ -42,7 +43,7 @@ const generateHistory = () => {
         course_id: Math.floor(Math.random() * 20 + 1),
         date: dayjs()
           .subtract(Math.floor(Math.random() * 30), 'day')
-          .format('yyyy-MM-DD'),
+          .format('YYYY-MM-DD'),
         created_at: new Date(),
         updated_at: new Date()
       }
@@ -53,5 +54,46 @@ const generateHistory = () => {
   }
   return history
 }
+/*回傳Comment instance物件陣列↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ */
+const generateComment = () => {
+  const comment = []
+  let id = 1
+  for (let i = 1; i < 21; i++) {
+    let newObject = {
+      id: id,
+      user_id: Math.floor(Math.random() * 5 + 2),
+      course_id: i,
+      score: Math.floor(Math.random() * 10 + 1),
+      comment: faker.lorem.text(),
+      created_at: new Date(),
+      updated_at: new Date()
+    }
+    comment.push(newObject)
+    id++
+  }
+  return comment
+}
+/*回傳reservation instance物件陣列↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ */
+const generateReserve = () => {
+  const reservation = []
+
+  for (let i = 1; i < 21; i++) {
+    for (let j = 1; j < 3; j++) {
+      let newReservation = {
+        user_id: Math.floor(Math.random() * 5 + 2),
+        course_id: i,
+        date: dayjs()
+          .subtract(Math.floor(Math.random() * 14 + 1), 'days')
+          .format('YYYY-MM-DD'),
+        time: '20:00',
+        duration: '30',
+        created_at: new Date(),
+        updated_at: new Date()
+      }
+      reservation.push(newReservation)
+    }
+  }
+  return reservation
+}
 /******************************************************* */
-module.exports = { getRandomDays, generateUser, generateHistory }
+module.exports = { getRandomDays, generateUser, generateHistory, generateComment, generateReserve }

@@ -22,7 +22,7 @@ module.exports = {
         allowNull: false
       },
       comment: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
       },
       created_at: {
         allowNull: false,
