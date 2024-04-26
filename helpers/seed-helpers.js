@@ -59,17 +59,19 @@ const generateComment = () => {
   const comment = []
   let id = 1
   for (let i = 1; i < 21; i++) {
-    let newObject = {
-      id: id,
-      user_id: Math.floor(Math.random() * 5 + 2),
-      course_id: i,
-      score: Math.floor(Math.random() * 10 + 1),
-      comment: faker.lorem.text(),
-      created_at: new Date(),
-      updated_at: new Date()
+    for (let j = 1; j < 3; j++) {
+      let newObject = {
+        id: id,
+        user_id: Math.floor(Math.random() * 5 + 2),
+        course_id: i,
+        score: Math.floor(Math.random() * 10 + 1),
+        comment: faker.lorem.text(),
+        created_at: new Date(),
+        updated_at: new Date()
+      }
+      comment.push(newObject)
+      id++
     }
-    comment.push(newObject)
-    id++
   }
   return comment
 }
