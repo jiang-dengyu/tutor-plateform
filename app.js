@@ -1,6 +1,7 @@
 if (true) {
   require('dotenv').config()
 }
+const path = require('path')
 const express = require('express')
 const app = express()
 const port = process.env.PORT || 3000
@@ -10,12 +11,13 @@ const session = require('express-session')
 const SESSION_SECRET = 'BIGSECRET'
 const { getUser } = require('./helpers/auth-helpers.js')
 const passport = require('./config/passport')
-const methodOverride = reduire('method-override')
+const methodOverride = require('method-override')
 /***************************************** */
 app.engine('hbs', handlebars({ extname: '.hbs' }))
 app.set('view engine', 'hbs')
 /**************************************************** */
 app.use(methodOverride('_method'))
+app.use('/upload', express.static(path.join(__dirname, 'upload')))
 
 app.use(express.urlencoded({ extended: true }))
 app.use(

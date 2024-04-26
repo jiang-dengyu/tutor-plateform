@@ -1,4 +1,5 @@
 const { Course } = require('../../models')
+const { localFileHandler } = require('../../helpers/file-helpers.js')
 /******************************* */
 const courseController = {
   home: (req, res, next) => {
@@ -6,7 +7,6 @@ const courseController = {
       raw: true
     })
       .then((courses) => {
-        console.log(courses)
         return res.render('home', { courses })
       })
       .catch((err) => next(err))
@@ -15,7 +15,6 @@ const courseController = {
     return res.render('apply')
   },
   apply: (req, res, next) => {
-    console.log(req.body)
     const { courseName, introduction, style, days } = req.body
     Course.create({
       name: courseName,
@@ -49,6 +48,40 @@ const courseController = {
     })
       .then((course) => {
         return res.render('course', { user, course })
+      })
+      .catch((err) => next(err))
+  },
+  teacherEditPage: (req, res, next) => {
+    const courseId = req.params.id
+    Course.findOne({ where: { id: courseId } })
+      .then((course) => {
+        return res.render('teacherEdit', { course: course.toJSON() })
+      })
+      .catch((err) => next(err))
+  },
+  teacherEdit: (req, res, next) => {
+    const userId = req.user.id
+    const courseId = req.params.id
+    const { courseName, style, introduction, link, days } = req.body
+    if (!courseName) throw new Error('Course name is required!')
+    const { file } = req
+    console.log(req.file)
+    localFileHandler(file)
+      .then((filePath) =>
+        Course.update(
+          {
+            name: courseName,
+            style,
+            introduction,
+            link,
+            dayOfWeek: days,
+            image: filePath || null
+          },
+          { where: { id: courseId, userId: userId } }
+        )
+      )
+      .then(() => {
+        res.redirect(`/teacher/${courseId}`)
       })
       .catch((err) => next(err))
   }

@@ -2,3 +2,11 @@
 <hr />
 <p>{{course.name}}</p>
 <p>{{course.dayOfWeek}}</p>
+<img class="img-responsive center-block mb-5" src="{{course.image}}"
+  style="width: 250px; transition: opacity 0.5s; opacity:0;" onload="this.style.opacity=1;">
+
+<hr />
+<a href="/teacher/edit/{{course.id}}">編輯課程資訊</a>
+<hr />
+<!-- Comment區域 -->
+<h3 class="mb-3">所有評論：</h3>
