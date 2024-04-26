@@ -13,7 +13,6 @@ module.exports = (sequelize, DataTypes) => {
   }
   History.init(
     {
-      name: DataTypes.STRING,
       userId: DataTypes.INTEGER,
       courseId: DataTypes.INTEGER,
       date: DataTypes.STRING

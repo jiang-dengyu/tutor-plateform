@@ -2,14 +2,31 @@
 <hr />
 <br>
 <a class="navbar-brand" href="/undefined">編輯個人資訊</a>
+
+{{!-- 預約課程 --}}
+<h3>我的預約課程</h3>
 <hr />
 {{#each reservation}}
+<p>預約課程:{{this.courseId}}</p>
+<p>預約日:{{this.date}}</p>
+<p>預約時段:{{this.time}}</p>
+<p>預約時長:{{this.duration}}</p>
+<hr />
 {{/each }}
+<br>
+<br>
+
+{{!-- 上課紀錄 --}}
+<h3>我的上課紀錄</h3>
 <hr />
 {{#each history}}
+<p>上課名稱{{this.courseId}}</p>
+<p>上課日期{{this.date}}</p>
+<hr />
 {{/each }}
 <br>
 <br>
+
 {{!-- 評價 --}}
 <h3>我的評價紀錄</h3>
 <hr />

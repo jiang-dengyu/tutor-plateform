@@ -53,7 +53,6 @@ const courseController = {
       })
     ])
       .then(([course, comment]) => {
-        console.log(comment)
         return res.render('course', { user, course, comment })
       })
       .catch((err) => next(err))
@@ -72,7 +71,6 @@ const courseController = {
     const { courseName, style, introduction, link, days } = req.body
     if (!courseName) throw new Error('Course name is required!')
     const { file } = req
-    console.log(req.file)
     localFileHandler(file)
       .then((filePath) =>
         Course.update(

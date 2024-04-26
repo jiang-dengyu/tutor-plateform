@@ -34,12 +34,11 @@ const generateUser = (id, email, isAdmin, name, password) => {
 const generateHistory = () => {
   const history = []
   let id = 1
-  let userId = 2
-  for (let i = 1; i < 11; i++) {
+  for (let i = 1; i < 6; i++) {
     for (let j = 1; j < 3; j++) {
       let newObject = {
         id: id,
-        user_id: userId,
+        user_id: i + 1,
         course_id: Math.floor(Math.random() * 20 + 1),
         date: dayjs()
           .subtract(Math.floor(Math.random() * 30), 'day')
@@ -50,7 +49,6 @@ const generateHistory = () => {
       history.push(newObject)
       id++
     }
-    userId++
   }
   return history
 }

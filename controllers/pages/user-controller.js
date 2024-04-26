@@ -1,6 +1,4 @@
-const db = require('../../models')
-const User = db.User
-const Comment = db.Comment
+const { User, Course, Comment, History, Reservation } = require('../../models')
 const bcrypt = require('bcryptjs')
 /********************************** */
 const userController = {
@@ -32,21 +30,33 @@ const userController = {
   signInPage: (req, res) => {
     return res.render('signIn')
   },
-  signIn: (req, res, next) => {
+  signIn: (req, res) => {
     return res.redirect('/home')
   },
   logOut: (req, res) => {
     req.logout() //passport提供的logout()
-    res.redirect('/signIn')
+    return res.redirect('/signIn')
   },
   userPage: (req, res, next) => {
     const user = req.user
-    Comment.findAll({
-      where: { userId: user.id },
-      raw: true
-    })
-      .then((comment) => {
-        res.render('profile', { user, comment })
+    Promise.all([
+      Comment.findAll({
+        where: { userId: 3 },
+        raw: true
+      }),
+      History.findAll({
+        where: { userId: 3 },
+        raw: true
+      }),
+      Reservation.findAll({
+        where: { userId: 3 },
+        raw: true
+      })
+    ])
+      .then(([comment, history, reservation]) => {
+        console.log('Comments:', comment)
+        console.log('Histories:', history)
+        return res.render('profile', { user, comment, history, reservation })
       })
       .catch((err) => next(err))
   }
