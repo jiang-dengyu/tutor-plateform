@@ -8,4 +8,14 @@
 <hr />
 {{#each history}}
 {{/each }}
-
+<br>
+<br>
+{{!-- 評價 --}}
+<h3>我的評價紀錄</h3>
+<hr />
+{{#each comment}}
+<p>{{this.score}}</p>
+<p>{{this.comment}}</p>
+<p>{{this.createdAt}}</p>
+<hr />
+{{/each }}

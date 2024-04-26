@@ -1,5 +1,6 @@
 const db = require('../../models')
 const User = db.User
+const Comment = db.Comment
 const bcrypt = require('bcryptjs')
 /********************************** */
 const userController = {
@@ -38,10 +39,16 @@ const userController = {
     req.logout() //passport提供的logout()
     res.redirect('/signIn')
   },
-  userPage: (req, res) => {
+  userPage: (req, res, next) => {
     const user = req.user
-    console.log(user)
-    return res.render('profile', { user })
+    Comment.findAll({
+      where: { userId: user.id },
+      raw: true
+    })
+      .then((comment) => {
+        res.render('profile', { user, comment })
+      })
+      .catch((err) => next(err))
   }
 }
 /********************************** */
