@@ -3,6 +3,7 @@ const router = express.Router()
 const userController = require('../../controllers/pages/user-controller')
 const courseController = require('../../controllers/pages/lesson-controller')
 const reserveController = require('../../controllers/pages/reserve-controller')
+const commentController = require('../../controllers/pages/comment-controller')
 const { authenticated, authenticatedAdmin } = require('../../middleware/auth.js')
 const passport = require('passport')
 const upload = require('../../middleware/multer')
@@ -17,6 +18,9 @@ router.post('/signIn', passport.authenticate('local', { failureRedirect: '/signi
 router.get('/logOut', userController.logOut)
 
 router.get('/users/:id', authenticated, userController.userPage)
+
+router.get('/comments/:id', authenticated, commentController.getComment)
+router.post('/comments/:id', authenticated, commentController.postComment)
 
 router.get('/course/:id', authenticated, courseController.coursePage)
 router.get('/course', authenticated, courseController.applyPage)

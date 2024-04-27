@@ -35,6 +35,7 @@ const courseController = {
       raw: true
     })
       .then((course) => {
+        console.log(course)
         return res.render('teacher', { user, course })
       })
       .catch((err) => next(err))

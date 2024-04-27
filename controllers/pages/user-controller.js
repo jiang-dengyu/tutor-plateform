@@ -40,22 +40,20 @@ const userController = {
   userPage: (req, res, next) => {
     const user = req.user
     Promise.all([
-      Comment.findAll({
-        where: { userId: 3 },
-        raw: true
-      }),
       History.findAll({
-        where: { userId: 3 },
+        where: { userId: user.id },
         raw: true
       }),
       Reservation.findAll({
-        where: { userId: 3 },
+        where: { userId: user.id },
+        raw: true
+      }),
+      Comment.findAll({
+        where: { userId: user.id },
         raw: true
       })
     ])
       .then(([comment, history, reservation]) => {
-        console.log('Comments:', comment)
-        console.log('Histories:', history)
         return res.render('profile', { user, comment, history, reservation })
       })
       .catch((err) => next(err))

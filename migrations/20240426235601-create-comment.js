@@ -10,19 +10,24 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       user_id: {
-        type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: false,
+        type: Sequelize.INTEGER
       },
       course_id: {
-        type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: false,
+        type: Sequelize.INTEGER
       },
       score: {
-        type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: false,
+        type: Sequelize.STRING
       },
       comment: {
+        allowNull: false,
         type: Sequelize.TEXT
+      },
+      history_id: {
+        allowNull: false,
+        type: Sequelize.INTEGER
       },
       created_at: {
         allowNull: false,

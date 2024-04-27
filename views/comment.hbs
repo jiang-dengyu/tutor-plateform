@@ -1,0 +1,22 @@
+{{!-- 預約 --}}
+<div class="mb-4 text-center">
+  <h2 class="h3 font-weight-normal mb-3">評價</h2>
+</div>
+<form class="form-reserve" action="/comments/{{history.id}}" method="POST">
+  <div class="form-row mb-3">
+    <label class="form-label" for="courseName">Course Name</label>
+    <input class="form-control" id="courseName" type="text" name="courseName" class="form-control"
+      placeholder="{{history.Course.name}}" value="{{history.Course.name}}" required autofocus disabled>
+  </div>
+  <div class="form-row mb-3">
+    <label class="form-label" for="rating">評分</label>
+    <input class="form-control" id="rating" type="number" name="rating" class="form-control" placeholder="寫下你的評分"
+      value="10" max="10" min="1" required autofocus>
+  </div>
+  <div class="form-row mb-3">
+    <label class="form-label" for="description">評價</label>
+    <textarea class="form-control" id="description" type="text" name="description" class="form-control" placeholder="寫下你的評價"
+      value=""  required autofocus ></textarea>
+  </div>
+  <button class="btn btn-primary btn-block" type="submit">Submit</button>
+</form>

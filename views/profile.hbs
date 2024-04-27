@@ -20,8 +20,10 @@
 <h3>我的上課紀錄</h3>
 <hr />
 {{#each history}}
-<p>上課名稱{{this.courseId}}</p>
-<p>上課日期{{this.date}}</p>
+<div>
+  <p>上課名稱{{this.courseId}}：上課日期{{this.date}}</p>
+  <a href="/comments/{{this.id}}"><button>前往評價</button></a>
+</div>
 <hr />
 {{/each }}
 <br>
