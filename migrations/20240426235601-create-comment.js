@@ -25,7 +25,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.TEXT
       },
-      history_id: {
+      hitory_id: {
         allowNull: false,
         type: Sequelize.INTEGER
       },

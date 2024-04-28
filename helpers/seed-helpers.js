@@ -64,7 +64,7 @@ const generateComment = () => {
         course_id: i,
         score: Math.floor(Math.random() * 10 + 1),
         comment: faker.lorem.text(),
-        history_id: 0,
+        hitory_id: 0,
         created_at: new Date(),
         updated_at: new Date()
       }

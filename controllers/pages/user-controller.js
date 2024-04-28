@@ -53,10 +53,12 @@ const userController = {
         raw: true
       })
     ])
-      .then(([comment, history, reservation]) => {
+      .then(([history, reservation, comment]) => {
         return res.render('profile', { user, comment, history, reservation })
       })
-      .catch((err) => next(err))
+      .catch((err) => {
+        next(err)
+      })
   }
 }
 /********************************** */
