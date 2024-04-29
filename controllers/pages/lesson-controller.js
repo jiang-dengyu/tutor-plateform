@@ -1,13 +1,20 @@
 const { Course, Comment, Reservation } = require('../../models')
 const { localFileHandler } = require('../../helpers/file-helpers.js')
+const { getOffset, getPagination } = require('../../helpers/pagination-helpers.js')
 /******************************* */
 const courseController = {
   home: (req, res, next) => {
-    Course.findAll({
+    const DEFAULT_LIMIT = 6
+    const page = Number(req.query.page) || 1
+    const limit = Number(req.query.limit) || DEFAULT_LIMIT
+    const offset = getOffset(page, limit)
+    Course.findAndCountAll({
+      limit,
+      offset,
       raw: true
     })
       .then((courses) => {
-        return res.render('home', { courses })
+        return res.render('home', { courses, pagination: getPagination(page, limit, courses.count) })
       })
       .catch((err) => next(err))
   },

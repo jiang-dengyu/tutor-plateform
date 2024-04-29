@@ -7,13 +7,15 @@ const app = express()
 const port = process.env.PORT || 3000
 const { pages, apis } = require('./routes')
 const handlebars = require('express-handlebars')
+const handlebarsHelpers = require('./helpers/handlebars-helpers')
 const session = require('express-session')
 const SESSION_SECRET = 'BIGSECRET'
 const { getUser } = require('./helpers/auth-helpers.js')
 const passport = require('./config/passport')
 const methodOverride = require('method-override')
+
 /***************************************** */
-app.engine('hbs', handlebars({ extname: '.hbs' }))
+app.engine('hbs', handlebars({ extname: '.hbs', helpers: handlebarsHelpers }))
 app.set('view engine', 'hbs')
 /**************************************************** */
 app.use(methodOverride('_method'))
