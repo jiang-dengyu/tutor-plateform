@@ -23,6 +23,7 @@ router.get('/users/:id', authenticated, userController.userPage)
 router.get('/comments/:id', authenticated, commentController.getComment)
 router.post('/comments/:id', authenticated, commentController.postComment)
 
+router.get('/course/search', authenticated, courseController.search)
 router.get('/course/:id', authenticated, courseController.coursePage)
 router.get('/course', authenticated, courseController.applyPage)
 router.post('/course', authenticated, courseController.apply)

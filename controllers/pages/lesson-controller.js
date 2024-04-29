@@ -14,7 +14,7 @@ const courseController = {
       raw: true
     })
       .then((courses) => {
-        return res.render('home', { courses, pagination: getPagination(page, limit, courses.count) })
+        return res.render('home', { courses: courses.rows, pagination: getPagination(page, limit, courses.count) })
       })
       .catch((err) => next(err))
   },
@@ -59,7 +59,6 @@ const courseController = {
       })
 
       .then(([course, reservation, comment]) => {
-        console.log('1', user, '2', course, '3', reservation, '4', comment)
         return res.render('teacher', { user, course, reservation, comment })
       })
       .catch((err) => next(err))
@@ -114,6 +113,37 @@ const courseController = {
         res.redirect(`/teacher/${courseId}`)
       })
       .catch((err) => next(err))
+  },
+  search: (req, res) => {
+    if (!req.query.keyword) {
+      return res.redirect('/home')
+    }
+    const keywords = req.query.keyword
+    const keyword = keywords.trim().toLowerCase()
+    console.log('這裡keyword是', keyword)
+    const DEFAULT_LIMIT = 6
+    const page = Number(req.query.page) || 1
+    const limit = Number(req.query.limit) || DEFAULT_LIMIT
+    const offset = getOffset(page, limit)
+
+    return Course.findAndCountAll({
+      attributes: ['id', 'name', 'image'],
+      limit,
+      offset,
+      raw: true
+    })
+      .then((coursesData) => {
+        console.log('這裡coursesData是', coursesData) //顯示Course.findAndCountAll結果
+        const filterCoursesData = coursesData.rows.filter((data) => data.name.toLowerCase().includes(keyword))
+        console.log('這裡filterCoursesData是', filterCoursesData)
+        console.log('這裡getPagination是', getPagination(page, limit, filterCoursesData.length))
+
+        return res.render('home', {
+          courses: filterCoursesData,
+          pagination: getPagination(page, limit, filterCoursesData.length)
+        })
+      })
+      .catch((err) => console.log(err))
   }
 }
 /******************************* */
