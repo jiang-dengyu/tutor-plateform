@@ -87,7 +87,7 @@ const generateReserve = () => {
         user_id: Math.floor(Math.random() * 5 + 2),
         course_id: i,
         date: dayjs()
-          .subtract(Math.floor(Math.random() * 14 + 1), 'days')
+          .add(Math.floor(Math.random() * 14 + 1), 'days')
           .format('YYYY-MM-DD'),
         time: '20:00',
         duration: '30',
