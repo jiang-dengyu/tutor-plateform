@@ -13,15 +13,18 @@ const SESSION_SECRET = 'BIGSECRET'
 const { getUser } = require('./helpers/auth-helpers.js')
 const passport = require('./config/passport')
 const methodOverride = require('method-override')
+const flash = require('connect-flash')
 
 /***************************************** */
 app.engine('hbs', handlebars({ extname: '.hbs', helpers: handlebarsHelpers }))
 app.set('view engine', 'hbs')
 /**************************************************** */
+
 app.use(methodOverride('_method'))
 app.use('/upload', express.static(path.join(__dirname, 'upload')))
 
 app.use(express.urlencoded({ extended: true }))
+/*解析session區域********************************** */
 app.use(
   session({
     secret: SESSION_SECRET,
@@ -29,7 +32,14 @@ app.use(
     saveUninitialized: false
   })
 )
-
+/*flash區域********************************** */
+app.use(flash())
+app.use((req, res, next) => {
+  res.locals.success_messages = req.flash('success_messages') // 設定 success_msg 訊息
+  res.locals.error_messages = req.flash('error_messages') // 設定 warning_msg 訊息
+  next()
+})
+/****************************************** */
 app.use(passport.initialize())
 app.use(passport.session())
 app.use((req, res, next) => {

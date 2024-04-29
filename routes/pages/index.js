@@ -7,6 +7,7 @@ const commentController = require('../../controllers/pages/comment-controller')
 const { authenticated, authenticatedAdmin } = require('../../middleware/auth.js')
 const passport = require('passport')
 const upload = require('../../middleware/multer')
+const { generalErrorHandler } = require('../../middleware/error-handler')
 /*********************************** */
 const admin = require('./modules/admin.js')
 router.use('/admin', authenticatedAdmin, admin)
@@ -32,5 +33,7 @@ router.put('/teacher/edit/:id', authenticated, upload.single('image'), courseCon
 router.get('/teacher/:id', authenticated, courseController.teacherPage)
 router.get('/home', authenticated, courseController.home)
 router.get('/', (req, res) => res.redirect('/home'))
+
+router.use('/', generalErrorHandler)
 /******************************************************** */
 module.exports = router

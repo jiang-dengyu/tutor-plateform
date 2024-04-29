@@ -58,11 +58,8 @@ const userController = {
       })
     ])
       .then(([history, reservation, comment, allUsers]) => {
-        console.log(user)
-        console.log(allUsers)
         const userTotalHours = user.totalHours
         const userRank = allUsers.filter((u) => u.totalHours > userTotalHours).length + 1
-
         return res.render('profile', { user, comment, history, reservation, userRank })
       })
       .catch((err) => {
