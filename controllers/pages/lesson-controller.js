@@ -1,4 +1,4 @@
-const { Course, Comment } = require('../../models')
+const { Course, Comment, Reservation } = require('../../models')
 const { localFileHandler } = require('../../helpers/file-helpers.js')
 /******************************* */
 const courseController = {
@@ -35,7 +35,25 @@ const courseController = {
       raw: true
     })
       .then((course) => {
-        return res.render('teacher', { user, course })
+        return Promise.all([
+          Course.findOne({
+            where: { userId: user.id },
+            raw: true
+          }),
+          Reservation.findAll({
+            where: { courseId: course.id },
+            raw: true
+          }),
+          Comment.findAll({
+            where: { courseId: course.id },
+            raw: true
+          })
+        ])
+      })
+
+      .then(([course, reservation, comment]) => {
+        console.log('1', user, '2', course, '3', reservation, '4', comment)
+        return res.render('teacher', { user, course, reservation, comment })
       })
       .catch((err) => next(err))
   },

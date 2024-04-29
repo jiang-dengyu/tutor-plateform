@@ -1,12 +1,30 @@
 <h1>老師{{user.email}}的個人頁</h1>
 <hr />
-<p>{{course.name}}</p>
-<p>{{course.dayOfWeek}}</p>
+<p>課程名稱：{{course.name}}</p>
+<p>開課日：{{course.dayOfWeek}}</p>
+
 <img class="img-responsive center-block mb-5" src="{{course.image}}"
   style="width: 250px; transition: opacity 0.5s; opacity:0;" onload="this.style.opacity=1;">
-
-<hr />
+<br>
+<br>
 <a href="/teacher/edit/{{course.id}}">編輯課程資訊</a>
 <hr />
+<!--預約區域 -->
+<h3 class="mb-3">New Schedule所有預約：</h3>
+<hr />
+{{#each reservation}}
+<p>userId:{{this.userId}}</p>
+<p>date:{{this.date}}</p>
+<p>time:{{this.time}}</p>
+<p>duration:{{this.duration}}</p>
+<hr />
+{{/each }}
 <!-- Comment區域 -->
 <h3 class="mb-3">所有評論：</h3>
+<hr />
+{{#each comment}}
+<p>評分：{{this.score}}</p>
+<p>留言：{{this.comment}}</p>
+<p>{{this.createdAt}}</p>
+<hr />
+{{/each }}
