@@ -1,6 +1,13 @@
 <h1>學生{{user.email}}的個人頁</h1>
 <hr />
+<img class="img-responsive center-block mb-5" src="{{user.image}}"
+  style="width: 250px; transition: opacity 0.5s; opacity:0;" onload="this.style.opacity=1;">
+<p>學生姓名  {{user.name}}</p>
+<p>學生介紹  {{user.intro}}</p>
+<p>上課總時數 {{user.totalHours}}小時</p>
+<p>上課總時數排名 {{userRank}}</p>
 <br>
+
 <a class="navbar-brand" href="/undefined">編輯個人資訊</a>
 
 {{!-- 預約課程 --}}

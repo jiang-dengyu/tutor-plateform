@@ -51,10 +51,19 @@ const userController = {
       Comment.findAll({
         where: { userId: user.id },
         raw: true
+      }),
+      User.findAll({
+        attributes: ['totalHours'],
+        raw: true
       })
     ])
-      .then(([history, reservation, comment]) => {
-        return res.render('profile', { user, comment, history, reservation })
+      .then(([history, reservation, comment, allUsers]) => {
+        console.log(user)
+        console.log(allUsers)
+        const userTotalHours = user.totalHours
+        const userRank = allUsers.filter((u) => u.totalHours > userTotalHours).length + 1
+
+        return res.render('profile', { user, comment, history, reservation, userRank })
       })
       .catch((err) => {
         next(err)
