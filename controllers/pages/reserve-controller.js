@@ -37,9 +37,10 @@ const reserveController = {
           duration
         })
       })
-      .then(() => {
-        // const result = reservation.toJSON()
-        // return res.render('reserveResult', { result })
+      .then((reservation) => {
+        const result = reservation.toJSON()
+        req.flash('success_messages', '預約成功！')
+        return res.render('reserveResult', { result, success_messages: req.flash('success_messages') })
       })
       .catch((err) => next(err))
   }

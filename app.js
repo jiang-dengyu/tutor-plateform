@@ -35,8 +35,8 @@ app.use(
 /*flash區域********************************** */
 app.use(flash())
 app.use((req, res, next) => {
-  res.locals.success_messages = req.flash('success_messages') // 設定 success_msg 訊息
-  res.locals.error_messages = req.flash('error_messages') // 設定 warning_msg 訊息
+  res.locals.success_messages = req.flash('success_messages') // 設定'success_msg'放置在res.locals.success_messages
+  res.locals.error_messages = req.flash('error_messages') // 設定 'warning_msg'
   next()
 })
 /****************************************** */

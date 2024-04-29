@@ -23,7 +23,7 @@ const userController = {
         })
       })
       .then(() => {
-        res.redirect('/signin')
+        return res.redirect('/signin')
       })
       .catch((err) => next(err))
   },
@@ -31,6 +31,7 @@ const userController = {
     return res.render('signIn')
   },
   signIn: (req, res) => {
+    req.flash('success_messages', '成功登入！')
     return res.redirect('/home')
   },
   logOut: (req, res) => {
