@@ -12,13 +12,11 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID, //給google看申請的ID
       clientSecret: process.env.GOOGLE_CLIENT_SECRET, //給google看申請的SECRET
-      callbackURL: process.env.GOOGLE_CALLBACK_URL, //完成登入google取得攜帶資訊後，需要導向的路由
-      profileFields: ['email', 'profile']
+      callbackURL: process.env.GOOGLE_CALLBACK_URL //完成登入google取得攜帶資訊後，需要導向的路由
     },
     (accessToken, refreshToken, profile, cb) => {
       const email = profile.emails[0].value
       const name = profile.displayName
-      console.log('斷點1', profile, '斷點1', email, '斷點1', name)
 
       return User.findOne({
         attributes: ['id', 'email', 'name'],
@@ -26,7 +24,6 @@ passport.use(
         raw: true
       })
         .then((user) => {
-          console.log('斷點2', user)
           if (user) return cb(null, user)
 
           const randomPwd = Math.random().toString(36).slice(-8)
@@ -34,7 +31,6 @@ passport.use(
             .hash(randomPwd, 10)
             .then((hash) => User.create({ name, email, password: hash }))
             .then((user) => {
-              console.log('斷點3 新增的user資料是', user)
               cb(null, { id: user.id, name: user.name, email: user.email })
             })
         })
