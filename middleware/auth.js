@@ -1,12 +1,18 @@
 const helpers = require('../helpers/auth-helpers')
 /***************************************** */
-const authenticated = (req, res, next) => {
+const authenticatedUser = (req, res, next) => {
   // if (req.isAuthenticated)
   if (helpers.ensureAuthenticated(req)) {
-    return next()
-  } //若使用者是已登入，就是true，就跑下一個middleware
-  res.redirect('/signIn')
+    if (!helpers.getUser(req).isAdmin) {
+      return next()
+    } else {
+      return res.redirect('/admin/users')
+    }
+  } else {
+    return res.redirect('/signin')
+  }
 }
+
 const authenticatedAdmin = (req, res, next) => {
   // if (req.isAuthenticated)
   if (helpers.ensureAuthenticated(req)) {
@@ -16,8 +22,9 @@ const authenticatedAdmin = (req, res, next) => {
     res.redirect('/signin')
   }
 }
+
 /************************ */
 module.exports = {
-  authenticated,
+  authenticatedUser,
   authenticatedAdmin
 }
