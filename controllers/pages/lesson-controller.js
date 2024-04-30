@@ -22,14 +22,20 @@ const courseController = {
     return res.render('apply')
   },
   apply: (req, res, next) => {
+    const userId = req.user.id
     const { courseName, introduction, style, days } = req.body
-    Course.create({
-      name: courseName,
-      introduction: introduction,
-      style: style,
-      dayOfWeek: days,
-      userId: req.user.id
-    })
+
+    Course.findAll({ where: { userId }, raw: true })
+      .then((checkTeacher) => {
+        if (checkTeacher) throw new Error('此帳號已經為老師帳號 不能夠重複申請')
+        return Course.create({
+          name: courseName,
+          introduction: introduction,
+          style: style,
+          dayOfWeek: days,
+          userId: req.user.id
+        })
+      })
       .then(() => {
         return res.redirect('/teacher/:id')
       })
