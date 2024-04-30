@@ -5,17 +5,31 @@ const courseController = require('../../controllers/pages/lesson-controller')
 const reserveController = require('../../controllers/pages/reserve-controller')
 const commentController = require('../../controllers/pages/comment-controller')
 const { authenticatedUser, authenticatedAdmin } = require('../../middleware/auth.js')
-const passport = require('passport')
+const passport = require('../../config/passport')
+
 const upload = require('../../middleware/multer')
 const { generalErrorHandler } = require('../../middleware/error-handler')
+
 /*********************************** */
 const admin = require('./modules/admin.js')
 router.use('/admin', authenticatedAdmin, admin)
 /********************************** */
 router.get('/signUp', userController.signUpPage)
 router.post('/signUp', userController.signUp)
+
+// router.get('/signIn/facebook', passport.authenticate('facebook', { scope: ['email'] }))
+// router.get(
+//   '/oauth2/redirect/facebook',
+//   passport.authenticate('facebook', {
+//     successRedirect: '/home',
+//     failureRedirect: '/signIn',
+//     failureMessage: true
+//   })
+// )
+router.get('/signIn/google', passport.authenticate('google', { scope: ['email', 'profile'] }))
+router.get('/oauth2/redirect/google', passport.authenticate('google', { successRedirect: '/home', failureRedirect: '/signIn', failureFlash: true }))
+router.post('/signIn', passport.authenticate('local', { failureRedirect: '/signIn', failureFlash: true }), userController.signIn)
 router.get('/signIn', userController.signInPage)
-router.post('/signIn', passport.authenticate('local', { failureRedirect: '/signin', failureFlash: true }), userController.signIn)
 router.get('/logOut', userController.logOut)
 
 router.get('/users/:id', authenticatedUser, userController.userPage)
