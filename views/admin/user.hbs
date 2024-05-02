@@ -1,2 +1,14 @@
 <h1>後台頁面</h1>
+<br>
 <hr />
+
+<div>
+  {{#each users}}
+  <div>
+    <p>使用者名稱:{{this.name}}</p>
+    <p>email:{{this.email}}</p>
+    <p>admin:{{this.isAdmin}}</p>
+  </div>
+  <hr />
+  {{/each }}
+</div>
