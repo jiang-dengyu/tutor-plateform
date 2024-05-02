@@ -21,7 +21,7 @@ const getRandomDays = () => {
 /*回傳User instance物件↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ */
 const generateUser = (id, email, isAdmin, name, password, totalHours, image, intro) => {
   return {
-    id,
+    id: id + 1,
     name,
     email,
     password,
