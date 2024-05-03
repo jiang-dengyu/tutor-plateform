@@ -17,15 +17,6 @@ router.use('/admin', authenticatedAdmin, admin)
 router.get('/signUp', userController.signUpPage)
 router.post('/signUp', userController.signUp)
 
-// router.get('/signIn/facebook', passport.authenticate('facebook', { scope: ['email'] }))
-// router.get(
-//   '/oauth2/redirect/facebook',
-//   passport.authenticate('facebook', {
-//     successRedirect: '/home',
-//     failureRedirect: '/signIn',
-//     failureMessage: true
-//   })
-// )
 router.get('/signIn/google', passport.authenticate('google', { scope: ['email', 'profile'] }))
 router.get('/oauth2/redirect/google', passport.authenticate('google', { successRedirect: '/home', failureRedirect: '/signIn', failureFlash: true }))
 router.post('/signIn', passport.authenticate('local', { failureRedirect: '/signIn', failureFlash: true }), userController.signIn)

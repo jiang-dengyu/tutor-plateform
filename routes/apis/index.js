@@ -1,8 +1,15 @@
 const express = require('express')
 const router = express.Router()
+const courseController = require('../../controllers/apis/lesson-controller')
 
-router.get('/', (req, res) => {
-  return res.send('this is from routes/apis.js')
-})
+const { authenticatedUser, authenticatedAdmin } = require('../../middleware/auth.js')
+const passport = require('../../config/passport')
 
+const upload = require('../../middleware/multer')
+const { generalErrorHandler } = require('../../middleware/error-handler')
+
+/*********************************** */
+
+router.get('/home', courseController.home)
+/******************************************************** */
 module.exports = router
