@@ -24,6 +24,7 @@ app.use(methodOverride('_method'))
 app.use('/upload', express.static(path.join(__dirname, 'upload')))
 
 app.use(express.urlencoded({ extended: true }))
+app.use(express.json())
 /*解析session區域********************************** */
 app.use(
   session({
@@ -46,7 +47,7 @@ app.use((req, res, next) => {
   res.locals.user = getUser(req)
   next()
 })
-app.use('/apis', apis)
+app.use('/api', apis)
 app.use(pages)
 /*********************************************************** */
 app.listen(port, () => {

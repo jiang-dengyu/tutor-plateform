@@ -28,6 +28,16 @@ const courseServices = {
         })
       })
       .catch((err) => cb(err))
+  },
+  getCourseId: (req, cb) => {
+    const id = req.params.courseId
+    Course.findOne({ where: { id } })
+      .then((course) => {
+        return cb(null, {
+          course: course
+        })
+      })
+      .catch((err) => cb(err))
   }
 }
 /******************************************************** */
