@@ -1,11 +1,31 @@
+const { User } = require('../models')
 const passport = require('passport')
 const LocalStrategy = require('passport-local')
-// const FacebookStrategy = require('passport-facebook')
+
+const passportJWT = require('passport-jwt')
+const JWTStrategy = passportJWT.Strategy
+const ExtractJWT = passportJWT.ExtractJwt
+
 const GoogleStrategy = require('passport-google-oauth2')
 const bcrypt = require('bcryptjs')
 
-const { User } = require('../models')
-/*********************************** */
+// JWT 登入驗證策略*****************************/
+const jwtOptions = {
+  jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
+  secretOrKey: process.env.JWT_SECRET
+}
+passport.use(
+  new JWTStrategy(jwtOptions, (jwtPayload, cb) => {
+    User.findOne({
+      attributes: ['id', 'email', 'name'],
+      where: { id: jwtPayload.id },
+      raw: true
+    })
+      .then((user) => cb(null, user))
+      .catch((err) => cb(err))
+  })
+)
+
 // Google OAuth 2.0登入驗證策略*****************************/
 passport.use(
   new GoogleStrategy(
