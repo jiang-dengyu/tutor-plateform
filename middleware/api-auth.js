@@ -10,9 +10,6 @@ const apiAuthenticated = (req, res, next) => {
   })(req, res, next)
 }
 const apiAuthenticatedAdmin = (req, res, next) => {
-  console.log(req.user)
-  console.log(req.user.isAdmin)
-
   if (req.user && req.user.isAdmin) return next()
   return res.status(403).json({ status: 'error', message: '非後台管理者帳號無法進入後台' })
 }

@@ -8,7 +8,6 @@ const adminController = {
       raw: true
     })
       .then((users) => {
-        console.log(users)
         return cb(null, { users })
       })
       .catch((err) => cb(err))
