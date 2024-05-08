@@ -1,4 +1,4 @@
-const { User, Course } = require('../models')
+const { User, Course, Comment, Reservation } = require('../models')
 const { getOffset, getPagination } = require('../helpers/pagination-helpers.js')
 /****************************** */
 const courseServices = {
@@ -56,6 +56,53 @@ const courseServices = {
       })
       .then((newCourse) => {
         return cb(null, { newCourse })
+      })
+      .catch((err) => cb(err))
+  },
+  teacherPage: (req, cb) => {
+    const user = req.user
+    Course.findOne({
+      where: { userId: user.id },
+      raw: true
+    })
+      .then((course) => {
+        if (!course) throw new Error('此帳號查無老師個人頁面')
+        return Promise.all([
+          Course.findOne({
+            where: { userId: user.id },
+            raw: true
+          }),
+          Reservation.findAll({
+            where: { courseId: course.id },
+            raw: true
+          }),
+          Comment.findAll({
+            where: { courseId: course.id },
+            raw: true
+          })
+        ])
+      })
+
+      .then(([course, reservation, comment]) => {
+        return cb(null, { user, course, reservation, comment })
+      })
+      .catch((err) => cb(err))
+  },
+  coursePage: (req, cb) => {
+    const user = req.user
+    const courseId = req.params.id
+    Promise.all([
+      Course.findOne({
+        where: { id: courseId },
+        raw: true
+      }),
+      Comment.findAll({
+        where: { courseId: courseId },
+        raw: true
+      })
+    ])
+      .then(([course, comment]) => {
+        return cb(null, { user, course, comment })
       })
       .catch((err) => cb(err))
   }

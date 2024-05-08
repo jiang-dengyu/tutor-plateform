@@ -9,6 +9,12 @@ const courseController = {
   },
   apply: (req, res, next) => {
     courseServices.apply(req, (err, data) => (err ? next(err) : res.json({ status: 'sucess', data })))
+  },
+  teacherPage: (req, res, next) => {
+    courseServices.teacherPage(req, (err, data) => (err ? next(err) : res.json({ status: 'sucess', data })))
+  },
+  coursePage: (req, res, next) => {
+    courseServices.coursePage(req, (err, data) => (err ? next(err) : res.json({ status: 'sucess', data })))
   }
 }
 /******************************* */
