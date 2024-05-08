@@ -131,7 +131,24 @@ const courseServices = {
         return cb(null, { unpdatedCourse })
       })
       .catch((err) => cb(err))
+  },
+  search: (req, cb) => {
+    if (!req.query.keyword) {
+      return res.redirect('/home')
+    }
+    const keywords = req.query.keyword
+    const keyword = keywords.trim().toLowerCase()
+    return Course.findAll({
+      attributes: ['id', 'name', 'image'],
+      raw: true
+    })
+      .then((coursesData) => {
+        const filterCoursesData = coursesData.filter((data) => data.name.toLowerCase().includes(keyword))
+        return cb(null, { courses: filterCoursesData })
+      })
+      .catch((err) => cb(err))
   }
 }
+
 /******************************************************** */
 module.exports = courseServices

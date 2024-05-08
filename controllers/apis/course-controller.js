@@ -18,6 +18,9 @@ const courseController = {
   },
   teacherEdit: (req, res, next) => {
     courseServices.teacherEdit(req, (err, data) => (err ? next(err) : res.json({ status: 'sucess', data })))
+  },
+  search: (req, res, next) => {
+    courseServices.search(req, (err, data) => (err ? next(err) : res.json({ status: 'sucess', data })))
   }
 }
 /******************************* */
