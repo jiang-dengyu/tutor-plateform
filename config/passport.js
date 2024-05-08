@@ -17,7 +17,7 @@ const jwtOptions = {
 passport.use(
   new JWTStrategy(jwtOptions, (jwtPayload, cb) => {
     User.findOne({
-      attributes: ['id', 'email', 'name'],
+      attributes: ['id', 'email', 'name', 'isAdmin'],
       where: { id: jwtPayload.id },
       raw: true
     })

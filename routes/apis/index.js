@@ -7,6 +7,9 @@ const { apiErrorHandler } = require('../../middleware/error-handler')
 const { apiAuthenticated, apiAuthenticatedAdmin, apiAuthenticatedUser } = require('../../middleware/api-auth')
 const upload = require('../../middleware/multer')
 /*********************************** */
+const admin = require('./modules/admin.js')
+router.use('/admin', apiAuthenticated, apiAuthenticatedAdmin, admin)
+/*********************************** */
 router.post('/signIn', passport.authenticate('local', { session: false }), userController.signIn)
 router.post('/signUp', userController.signUp)
 router.get('/users/:id', apiAuthenticated, apiAuthenticatedUser, userController.userPage)
