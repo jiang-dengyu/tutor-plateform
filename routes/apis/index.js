@@ -9,6 +9,7 @@ const { apiAuthenticated, apiAuthenticatedAdmin, apiAuthenticatedUser } = requir
 router.post('/signIn', passport.authenticate('local', { session: false }), userController.signIn)
 router.post('/signUp', userController.signUp)
 
+router.get('/users/:id', apiAuthenticated, apiAuthenticatedUser, userController.userPage)
 router.get('/courses/:courseId', apiAuthenticated, apiAuthenticatedUser, courseController.getCourseId)
 
 router.get('/home', courseController.home)

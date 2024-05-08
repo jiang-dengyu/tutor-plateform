@@ -1,4 +1,4 @@
-const { User } = require('../models')
+const { User, History, Comment, Reservation } = require('../models')
 const bcrypt = require('bcryptjs')
 /*********************************************** */
 const userServices = {
@@ -25,6 +25,36 @@ const userServices = {
         })
       })
       .catch((err) => cb(err))
+  },
+  userPage: (req, cb) => {
+    console.log(req.user)
+    const user = req.user
+    Promise.all([
+      History.findAll({
+        where: { userId: user.id },
+        raw: true
+      }),
+      Reservation.findAll({
+        where: { userId: user.id },
+        raw: true
+      }),
+      Comment.findAll({
+        where: { userId: user.id },
+        raw: true
+      }),
+      User.findAll({
+        attributes: ['totalHours'],
+        raw: true
+      })
+    ])
+      .then(([history, reservation, comment, allUsers]) => {
+        const userTotalHours = user.totalHours
+        const userRank = allUsers.filter((u) => u.totalHours > userTotalHours).length + 1
+        return cb(null, { user, comment, history, reservation, userRank })
+      })
+      .catch((err) => {
+        cb(err)
+      })
   }
 }
 /**************************** */

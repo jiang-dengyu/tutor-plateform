@@ -21,6 +21,9 @@ const userController = {
   },
   signUp: (req, res, next) => {
     userServices.signUp(req, (err, data) => (err ? next(err) : res.json({ status: 'success', data })))
+  },
+  userPage: (req, res, next) => {
+    userServices.userPage(req, (err, data) => (err ? next(err) : res.json({ status: 'success', data })))
   }
 }
 /********************************** */
