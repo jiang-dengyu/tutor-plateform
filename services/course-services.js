@@ -1,5 +1,6 @@
 const { User, Course, Comment, Reservation } = require('../models')
 const { getOffset, getPagination } = require('../helpers/pagination-helpers.js')
+const { localFileHandler } = require('../helpers/file-helpers.js')
 /****************************** */
 const courseServices = {
   home: (req, cb) => {
@@ -103,6 +104,31 @@ const courseServices = {
     ])
       .then(([course, comment]) => {
         return cb(null, { user, course, comment })
+      })
+      .catch((err) => cb(err))
+  },
+  teacherEdit: (req, cb) => {
+    const userId = req.user.id
+    const courseId = req.params.id
+    const { courseName, style, introduction, link, days } = req.body
+    if (!courseName) throw new Error('Course name is required!')
+    const { file } = req
+    localFileHandler(file)
+      .then((filePath) => {
+        return Course.update(
+          {
+            name: courseName,
+            style,
+            introduction,
+            link,
+            dayOfWeek: days,
+            image: filePath || null
+          },
+          { where: { id: courseId, userId: userId } }
+        )
+      })
+      .then((unpdatedCourse) => {
+        return cb(null, { unpdatedCourse })
       })
       .catch((err) => cb(err))
   }
