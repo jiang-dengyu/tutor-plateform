@@ -38,6 +38,26 @@ const courseServices = {
         })
       })
       .catch((err) => cb(err))
+  },
+  apply: (req, cb) => {
+    const userId = req.user.id
+    const { courseName, introduction, style, days } = req.body
+
+    Course.findOne({ where: { userId }, raw: true })
+      .then((checkTeacher) => {
+        if (checkTeacher) throw new Error('此帳號已經為老師帳號 不能夠重複申請')
+        return Course.create({
+          name: courseName,
+          introduction: introduction,
+          style: style,
+          dayOfWeek: days,
+          userId: req.user.id
+        })
+      })
+      .then((newCourse) => {
+        return cb(null, { newCourse })
+      })
+      .catch((err) => cb(err))
   }
 }
 /******************************************************** */

@@ -11,7 +11,7 @@ router.post('/signUp', userController.signUp)
 
 router.get('/users/:id', apiAuthenticated, apiAuthenticatedUser, userController.userPage)
 router.get('/courses/:courseId', apiAuthenticated, apiAuthenticatedUser, courseController.getCourseId)
-
+router.post('/course', apiAuthenticated, apiAuthenticatedUser, courseController.apply)
 router.get('/home', courseController.home)
 /******************************************************** */
 router.use('/', apiErrorHandler)

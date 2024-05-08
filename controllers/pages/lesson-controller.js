@@ -33,7 +33,7 @@ const courseController = {
     const userId = req.user.id
     const { courseName, introduction, style, days } = req.body
 
-    Course.findAll({ where: { userId }, raw: true })
+    Course.findOne({ where: { userId }, raw: true })
       .then((checkTeacher) => {
         if (checkTeacher) throw new Error('此帳號已經為老師帳號 不能夠重複申請')
         return Course.create({

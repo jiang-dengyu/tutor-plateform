@@ -1,6 +1,7 @@
 const passport = require('../config/passport')
 
 /*************************** */
+
 const apiAuthenticated = (req, res, next) => {
   passport.authenticate('jwt', { session: false }, (err, user) => {
     if (err || !user) return res.status(401).json({ status: 'error', message: 'unauthorized' })
@@ -21,3 +22,6 @@ module.exports = {
   apiAuthenticatedAdmin,
   apiAuthenticatedUser
 }
+//api的Authenticated middleware設計成3個：
+//apiAuthenticated只驗證是否為合法token，apiAuthenticatedAdmin驗證是否為後台身分，apiAuthenticatedUser驗證一般使用者
+//簡單舉例，在非後台路由內，apiAuthenticated、apiAuthenticatedUser通常會一起使用
