@@ -25,7 +25,7 @@ router.get('/logOut', userController.logOut)
 
 router.get('/users/:id', authenticatedUser, userController.userPage)
 
-router.get('/comments/:id', authenticatedUser, commentController.getComment)
+router.get('/comments/:id', authenticatedUser, commentController.getCommentPage)
 router.post('/comments/:id', authenticatedUser, commentController.postComment)
 
 router.get('/course/search', authenticatedUser, courseController.search)

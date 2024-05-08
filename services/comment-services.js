@@ -1,16 +1,16 @@
-const { Course, Comment, History } = require('../../models')
-/******************************* */
-const commentController = {
-  getCommentPage: (req, res, next) => {
+const { Course, Comment, History } = require('../models')
+/*********************************************** */
+const commentServices = {
+  getCommentPage: (req, cb) => {
     const historyId = req.params.id
     History.findOne({ include: [Course] }, { where: { id: historyId } })
       .then((history) => {
         if (!history) throw new Error('找不到可以評價的歷史紀錄')
-        return res.render('comment', { history: history.toJSON() })
+        return cb(null, { history: history.toJSON() })
       })
-      .catch((err) => next(err))
+      .catch((err) => cb(err))
   },
-  postComment: (req, res, next) => {
+  postComment: (req, cb) => {
     const userId = req.user.id
     const historyId = req.params.id
     const { rating, description } = req.body
@@ -28,12 +28,13 @@ const commentController = {
         })
       })
       .then((comment) => {
-        return res.redirect(`/users/${userId}`)
+        return cb(null, { comment })
       })
       .catch((err) => {
-        next(err)
+        cb(err)
       })
   }
 }
-/******************************* */
-module.exports = commentController
+/**************************** */
+
+module.exports = commentServices
