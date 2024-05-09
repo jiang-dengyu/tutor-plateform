@@ -14,7 +14,7 @@
 <h3>我的預約課程</h3>
 <hr />
 {{#each reservation}}
-<p>預約課程:{{this.courseId}}</p>
+<p>預約課程:{{this.Course.name}}</p>
 <p>預約日:{{this.date}}</p>
 <p>預約時段:{{this.time}}</p>
 <p>預約時長:{{this.duration}}</p>
@@ -28,7 +28,8 @@
 <hr />
 {{#each history}}
 <div>
-  <p>上課名稱{{this.courseId}}：上課日期{{this.date}}</p>
+  <p>課程名稱{{this.Course.name}}</p>
+  <p>上課日期{{this.date}}</p>
   <a href="/comments/{{this.id}}"><button>前往評價</button></a>
 </div>
 <hr />
@@ -40,8 +41,9 @@
 <h3>我的評價紀錄</h3>
 <hr />
 {{#each comment}}
-<p>{{this.score}}</p>
-<p>{{this.comment}}</p>
+<p>課程名稱{{this.Course.name}}</p>
+<p>評分{{this.score}}</p>
+<p>評論：{{this.comment}}</p>
 <p>{{this.createdAt}}</p>
 <hr />
 {{/each }}

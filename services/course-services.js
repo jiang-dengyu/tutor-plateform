@@ -75,15 +75,18 @@ const courseServices = {
           }),
           Reservation.findAll({
             where: { courseId: course.id },
-            raw: true
+            raw: true,
+            nest: true,
+            include: [User]
           }),
           Comment.findAll({
             where: { courseId: course.id },
-            raw: true
+            raw: true,
+            nest: true,
+            include: [User]
           })
         ])
       })
-
       .then(([course, reservation, comment]) => {
         return cb(null, { user, course, reservation, comment })
       })
@@ -99,7 +102,9 @@ const courseServices = {
       }),
       Comment.findAll({
         where: { courseId: courseId },
-        raw: true
+        raw: true,
+        nest: true,
+        include: [User]
       })
     ])
       .then(([course, comment]) => {

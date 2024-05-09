@@ -13,7 +13,7 @@
 <h3 class="mb-3">New Schedule所有預約：</h3>
 <hr />
 {{#each reservation}}
-<p>預約人:{{this.userId}}</p>
+<p>預約人:{{this.User.name}}</p>
 <p>date:{{this.date}}</p>
 <p>time:{{this.time}}</p>
 <p>duration:{{this.duration}}</p>
@@ -23,6 +23,7 @@
 <h3 class="mb-3">所有評論：</h3>
 <hr />
 {{#each comment}}
+<p>學生：{{this.User.name}}</p>
 <p>評分：{{this.score}}</p>
 <p>留言：{{this.comment}}</p>
 <p>{{this.createdAt}}</p>

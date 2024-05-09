@@ -43,15 +43,21 @@ const userController = {
     Promise.all([
       History.findAll({
         where: { userId: user.id },
-        raw: true
+        raw: true,
+        nest: true,
+        include: [Course]
       }),
       Reservation.findAll({
         where: { userId: user.id },
-        raw: true
+        raw: true,
+        nest: true,
+        include: [Course]
       }),
       Comment.findAll({
         where: { userId: user.id },
-        raw: true
+        raw: true,
+        nest: true,
+        include: [Course]
       }),
       User.findAll({
         attributes: ['totalHours'],

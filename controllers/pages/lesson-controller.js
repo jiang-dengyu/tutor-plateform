@@ -63,16 +63,22 @@ const courseController = {
           }),
           Reservation.findAll({
             where: { courseId: course.id },
-            raw: true
+            raw: true,
+            nest: true,
+            include: [User]
           }),
           Comment.findAll({
             where: { courseId: course.id },
-            raw: true
+            raw: true,
+            nest: true,
+            include: [User]
           })
         ])
       })
 
       .then(([course, reservation, comment]) => {
+        console.log(reservation)
+        console.log(comment)
         return res.render('teacher', { user, course, reservation, comment })
       })
       .catch((err) => next(err))
@@ -87,7 +93,9 @@ const courseController = {
       }),
       Comment.findAll({
         where: { courseId: courseId },
-        raw: true
+        raw: true,
+        nest: true,
+        include: [User]
       })
     ])
       .then(([course, comment]) => {

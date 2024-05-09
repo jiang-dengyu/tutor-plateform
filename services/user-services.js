@@ -27,20 +27,25 @@ const userServices = {
       .catch((err) => cb(err))
   },
   userPage: (req, cb) => {
-    console.log(req.user)
     const user = req.user
     Promise.all([
       History.findAll({
         where: { userId: user.id },
-        raw: true
+        raw: true,
+        nest: true,
+        include: [Course]
       }),
       Reservation.findAll({
         where: { userId: user.id },
-        raw: true
+        raw: true,
+        nest: true,
+        include: [Course]
       }),
       Comment.findAll({
         where: { userId: user.id },
-        raw: true
+        raw: true,
+        nest: true,
+        include: [Course]
       }),
       User.findAll({
         attributes: ['totalHours'],
