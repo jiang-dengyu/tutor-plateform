@@ -1,0 +1,23 @@
+<h1>學生個人編輯頁</h1>
+<hr />
+<br>
+<div class="row mb-5">
+  <form class="form-reserve" action="/users/{{user.id}}/edit/?_method=PUT" method="POST" enctype="multipart/form-data">
+    <div class="form-row mb-3">
+      <label class="form-label" for="userName">User Name</label>
+      <input class="form-control" id="userName" type="text" name="userName" class="form-control"
+        placeholder="User Name" value="{{user.name}}" required autofocus>
+    </div>
+    <div class="form-row mb-3">
+      <label class="form-label" for="intro">User Introduction</label>
+      <input class="form-control" id="intro" type="text" name="intro" class="form-control"
+        placeholder="User Introduction" value="{{user.intro}}" required autofocus>
+    </div>
+    <div class="form-row mb-3">
+      <label class="form-label" for="image">User Image</label>
+      <input class="form-control" id="image" type="file" class="form-control-file" name="image">
+    </div>
+    <button class="btn btn-primary btn-block" type="submit">Submit</button>
+  </form>
+</div>
+<hr />

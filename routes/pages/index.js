@@ -23,6 +23,8 @@ router.post('/signIn', passport.authenticate('local', { failureRedirect: '/signI
 router.get('/signIn', userController.signInPage)
 router.get('/logOut', userController.logOut)
 
+router.get('/users/:id/edit', authenticatedUser, userController.userEditPage)
+router.put('/users/:id/edit', authenticatedUser, upload.single('image'), userController.userEdit)
 router.get('/users/:id', authenticatedUser, userController.userPage)
 
 router.get('/comments/:id', authenticatedUser, commentController.getCommentPage)

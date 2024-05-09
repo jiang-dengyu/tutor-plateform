@@ -1,5 +1,6 @@
 const { User, Course, Comment, History, Reservation } = require('../../models')
 const bcrypt = require('bcryptjs')
+const { localFileHandler } = require('../../helpers/file-helpers.js')
 /********************************** */
 const userController = {
   signUpPage: (req, res) => {
@@ -72,6 +73,40 @@ const userController = {
       .catch((err) => {
         next(err)
       })
+  },
+  userEditPage: (req, res, next) => {
+    const userId = req.params.id
+    User.findByPk(userId, {
+      raw: true
+    })
+      .then((user) => {
+        if (!user) throw new Error('找不到使用者資訊!')
+        return res.render('userEditPage', { user })
+      })
+      .catch((err) => {
+        next(err)
+      })
+  },
+  userEdit: (req, res, next) => {
+    const userId = req.params.id
+    const { userName, intro } = req.body
+    if (!userName) throw new Error('User name is required!')
+    const { file } = req
+    localFileHandler(file)
+      .then((filePath) =>
+        User.update(
+          {
+            name: userName,
+            intro,
+            image: filePath || 'https://loremflickr.com/320/240/portrait/?random=52.066561461711935'
+          },
+          { where: { id: userId } }
+        )
+      )
+      .then(() => {
+        return res.redirect(`/users/${userId}`)
+      })
+      .catch((err) => next(err))
   }
 }
 /********************************** */

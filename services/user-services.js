@@ -1,5 +1,6 @@
 const { User, History, Comment, Reservation } = require('../models')
 const bcrypt = require('bcryptjs')
+const { localFileHandler } = require('../helpers/file-helpers.js')
 /*********************************************** */
 const userServices = {
   signUp: (req, cb) => {
@@ -60,6 +61,27 @@ const userServices = {
       .catch((err) => {
         cb(err)
       })
+  },
+  userEdit: (req, cb) => {
+    const userId = req.params.id
+    const { userName, intro } = req.body
+    if (!userName) throw new Error('User name is required!')
+    const { file } = req
+    localFileHandler(file)
+      .then((filePath) => {
+        return User.update(
+          {
+            name: userName,
+            intro,
+            image: filePath || 'https://loremflickr.com/320/240/portrait/?random=52.066561461711935'
+          },
+          { where: { id: userId } }
+        )
+      })
+      .then((updatedUser) => {
+        return cb(null, { updatedUser })
+      })
+      .catch((err) => cb(err))
   }
 }
 /**************************** */

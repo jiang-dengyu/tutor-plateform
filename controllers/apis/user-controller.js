@@ -2,6 +2,7 @@ const { User, Course, Comment, History, Reservation } = require('../../models')
 
 const jwt = require('jsonwebtoken')
 const userServices = require('../../services/user-services')
+
 /********************************** */
 const userController = {
   signIn: (req, res, next) => {
@@ -24,6 +25,9 @@ const userController = {
   },
   userPage: (req, res, next) => {
     userServices.userPage(req, (err, data) => (err ? next(err) : res.json({ status: 'success', data })))
+  },
+  userEdit: (req, res, next) => {
+    userServices.userEdit(req, (err, data) => (err ? next(err) : res.json({ status: 'success', data })))
   }
 }
 /********************************** */

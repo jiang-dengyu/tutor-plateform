@@ -14,6 +14,8 @@ router.use('/admin', apiAuthenticated, apiAuthenticatedAdmin, admin)
 /*********************************** */
 router.post('/signIn', passport.authenticate('local', { session: false }), userController.signIn)
 router.post('/signUp', userController.signUp)
+
+router.put('/users/:id/edit', apiAuthenticated, apiAuthenticatedUser, upload.single('image'), userController.userEdit)
 router.get('/users/:id', apiAuthenticated, apiAuthenticatedUser, userController.userPage)
 
 router.get('/course/search', apiAuthenticated, apiAuthenticatedUser, courseController.search)
