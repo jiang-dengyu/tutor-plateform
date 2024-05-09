@@ -15,13 +15,12 @@
 </div>
 <hr />
 <br>
-<div>
-  <h4 class="mb-2">上課時數總排行：</h4>
-  {{#each allUsers}}
-  <p>學生:{{this.name}},上課時數{{this.totalHours}}H</p>
-  {{/each}}
-</div>
+{{> totalHours}}
+
+<hr />
+<br>
 <!--主頁:課程總清單-->
+<h2 class="mb-2">所有課程：</h2>
 <div class="row mt-3">
   {{#each courses}}
   <div class="col-md-4">

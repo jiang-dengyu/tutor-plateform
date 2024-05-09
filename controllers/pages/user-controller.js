@@ -41,30 +41,34 @@ const userController = {
   },
   userPage: (req, res, next) => {
     const user = req.user
-    Promise.all([
-      History.findAll({
-        where: { userId: user.id },
-        raw: true,
-        nest: true,
-        include: [Course]
-      }),
-      Reservation.findAll({
-        where: { userId: user.id },
-        raw: true,
-        nest: true,
-        include: [Course]
-      }),
-      Comment.findAll({
-        where: { userId: user.id },
-        raw: true,
-        nest: true,
-        include: [Course]
-      }),
-      User.findAll({
-        attributes: ['totalHours'],
-        raw: true
+    Course.findOne({ where: { userId: user.id } })
+      .then((course) => {
+        if (course) throw new Error('教師帳號無法進入學生個人頁面')
+        return Promise.all([
+          History.findAll({
+            where: { userId: user.id },
+            raw: true,
+            nest: true,
+            include: [Course]
+          }),
+          Reservation.findAll({
+            where: { userId: user.id },
+            raw: true,
+            nest: true,
+            include: [Course]
+          }),
+          Comment.findAll({
+            where: { userId: user.id },
+            raw: true,
+            nest: true,
+            include: [Course]
+          }),
+          User.findAll({
+            attributes: ['totalHours'],
+            raw: true
+          })
+        ])
       })
-    ])
       .then(([history, reservation, comment, allUsers]) => {
         const userTotalHours = user.totalHours
         const userRank = allUsers.filter((u) => u.totalHours > userTotalHours).length + 1

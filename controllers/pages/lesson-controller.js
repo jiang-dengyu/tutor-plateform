@@ -56,6 +56,7 @@ const courseController = {
       raw: true
     })
       .then((course) => {
+        if (!course) throw new Error('學生帳號不能進入教師頁面')
         return Promise.all([
           Course.findOne({
             where: { userId: user.id },

@@ -1,39 +1,72 @@
 <h1>學生{{user.email}}的個人頁</h1>
 <hr />
-<img class="img-responsive center-block mb-5" src="{{user.image}}"
-  style="width: 250px; transition: opacity 0.5s; opacity:0;" onload="this.style.opacity=1;">
-<p>學生姓名  {{user.name}}</p>
-<p>學生介紹  {{user.intro}}</p>
-<p>上課總時數 {{user.totalHours}}小時</p>
-<p>上課總時數排名 {{userRank}}</p>
+<div class="row">
+  <div class="col-md-4">
+    <img class="img-responsive center-block mb-5" src="{{user.image}}"
+      style="width: 250px; transition: opacity 0.5s; opacity:0;" onload="this.style.opacity=1;">
+  </div>
+  <div class="col-md-8">
+    <p style="font-size: 18px;">學生姓名 {{user.name}}</p>
+    <p style="font-size: 18px;">學生介紹 {{user.intro}}</p>
+    <p style="font-size: 18px;">上課總時數 {{user.totalHours}}小時</p>
+    <p style="font-size: 18px;">上課總時數排名 {{userRank}}</p>
+  </div>
+</div>
+<a class="btn btn-success " href="/Users/{{user.id}}/edit">編輯個人資訊</a>
 <br>
-
-<a class="navbar-brand" href="/Users/{{user.id}}/edit">編輯個人資訊</a>
+<hr />
 
 {{!-- 預約課程 --}}
-<h3>我的預約課程</h3>
-<hr />
-{{#each reservation}}
-<p>預約課程:{{this.Course.name}}</p>
-<p>預約日:{{this.date}}</p>
-<p>預約時段:{{this.time}}</p>
-<p>預約時長:{{this.duration}}</p>
-<hr />
-{{/each }}
+<br>
+<div class="container">
+  <h3>我的預約課程</h3>
+  <table class="table">
+    <thead class="table-success">
+      <tr>
+        <th>預約課程</th>
+        <th>預約日</th>
+        <th>預約時段</th>
+        <th>預約時長</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each reservation}}
+      <tr>
+        <td>{{this.Course.name}}</td>
+        <td>{{this.date}}</td>
+        <td>{{this.time}}</td>
+        <td>{{this.duration}}</td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
 <br>
 <br>
 
 {{!-- 上課紀錄 --}}
 <h3>我的上課紀錄</h3>
 <hr />
-{{#each history}}
-<div>
-  <p>課程名稱{{this.Course.name}}</p>
-  <p>上課日期{{this.date}}</p>
-  <a href="/comments/{{this.id}}"><button>前往評價</button></a>
+<div class="container">
+  <table class="table">
+    <thead class="table-info">
+      <tr>
+        <th>課程名稱</th>
+        <th>上課日期</th>
+        <th>評價</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each history}}
+      <tr>
+        <td>{{this.Course.name}}</td>
+        <td>{{this.date}}</td>
+        <td><a href="/comments/{{this.id}}"><button class="btn btn-primary">前往評價</button></a></td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
 </div>
-<hr />
-{{/each }}
 <br>
 <br>
 
@@ -41,9 +74,25 @@
 <h3>我的評價紀錄</h3>
 <hr />
 {{#each comment}}
-<p>課程名稱{{this.Course.name}}</p>
-<p>評分{{this.score}}</p>
-<p>評論：{{this.comment}}</p>
-<p>{{this.createdAt}}</p>
-<hr />
-{{/each }}
+<br>
+  <div class="card">
+    <div class="card-header">
+      Record
+    </div>
+    <div class="card-body">
+      <blockquote class="blockquote mb-0">
+        <p>課程名稱{{this.Course.name}}</p>
+        <p>評分{{this.score}}</p>
+        <p>評論：{{this.comment}}</p>
+        <p>{{transDateTime this.createdAt}}</p>
+        <hr />
+      </blockquote>
+    </div>
+  </div>
+<br>
+{{/each}}
+
+<br>
+<br>
+
+

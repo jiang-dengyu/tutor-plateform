@@ -1,0 +1,21 @@
+<div id="sidebar">
+  <h4 class="mb-2">上課時數總排行：</h4>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">學生</th>
+        <th scope="col">上課時數</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each allUsers}}
+      <tr>
+        <td>{{addOne @index }}</td>
+        <td>{{this.name}}</td>
+        <td>{{this.totalHours}}H</td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>

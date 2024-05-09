@@ -1,31 +1,68 @@
 <h1>老師{{user.email}}的個人頁</h1>
 <hr />
-<p>課程名稱：{{course.name}}</p>
-<p>開課日：{{course.dayOfWeek}}</p>
+<div class="row">
+  <div class="col-md-4">
+    <img class="img-responsive center-block mb-5" src="{{user.image}}"
+      style="width: 250px; transition: opacity 0.5s; opacity:0;" onload="this.style.opacity=1;">
+  </div>
+  <div class="col-md-8">
+    <p style="font-size: 18px;">課程名稱：{{course.name}}</p>
+    <p style="font-size: 18px;">課程style：{{course.style}}</p>
+    <p style="font-size: 18px;">課程介紹：{{course.introduction}}</p>
+    <p style="font-size: 18px;">開課日：{{course.dayOfWeek}}</p>
+  </div>
+</div>
+<a class="btn btn-warning " href="/teacher/edit/{{course.id}}">編輯課程資訊</a>
 
-<img class="img-responsive center-block mb-5" src="{{course.image}}"
-  style="width: 250px; transition: opacity 0.5s; opacity:0;" onload="this.style.opacity=1;">
-<br>
-<br>
-<a href="/teacher/edit/{{course.id}}">編輯課程資訊</a>
 <hr />
+<br>
+<br>
 <!--預約區域 -->
 <h3 class="mb-3">New Schedule所有預約：</h3>
 <hr />
-{{#each reservation}}
-<p>預約人:{{this.User.name}}</p>
-<p>date:{{this.date}}</p>
-<p>time:{{this.time}}</p>
-<p>duration:{{this.duration}}</p>
-<hr />
-{{/each }}
+<div class="container">
+  <table class="table">
+    <thead class="table-success">
+      <tr>
+        <th>預約人:</th>
+        <th>預約日</th>
+        <th>預約時段</th>
+        <th>預約時長</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each reservation}}
+      <tr>
+        <td>{{this.User.name}}</td>
+        <td>{{this.date}}</td>
+        <td>{{this.time}}</td>
+        <td>{{this.duration}}</td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
+<br>
+<br>
+
 <!-- Comment區域 -->
 <h3 class="mb-3">所有評論：</h3>
 <hr />
 {{#each comment}}
-<p>學生：{{this.User.name}}</p>
-<p>評分：{{this.score}}</p>
-<p>留言：{{this.comment}}</p>
-<p>{{this.createdAt}}</p>
-<hr />
-{{/each }}
+<br>
+<div class="card">
+  <div class="card-header">
+    Record
+  </div>
+  <div class="card-body">
+    <blockquote class="blockquote mb-0">
+      <p>學生：{{this.User.name}}</p>
+      <p>評分：{{this.score}}</p>
+      <p>留言：{{this.comment}}</p>
+      <p>{{transDateTime this.createdAt}}</p>
+      <hr />
+    </blockquote>
+  </div>
+</div>
+<br>
+{{/each}}
