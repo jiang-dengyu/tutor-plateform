@@ -78,8 +78,6 @@ const courseController = {
       })
 
       .then(([course, reservation, comment]) => {
-        console.log(reservation)
-        console.log(comment)
         return res.render('teacher', { user, course, reservation, comment })
       })
       .catch((err) => next(err))
@@ -151,7 +149,7 @@ const courseController = {
         const filterCoursesData = coursesData.filter((data) => data.name.toLowerCase().includes(keyword))
         return res.render('home', { courses: filterCoursesData })
       })
-      .catch((err) => console.log(err))
+      .catch((err) => next(err))
   }
 }
 /******************************* */

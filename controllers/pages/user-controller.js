@@ -41,6 +41,12 @@ const userController = {
   },
   userPage: (req, res, next) => {
     const user = req.user
+    const profileId = req.params.id
+    if (user.id.toString() !== profileId) {
+      req.flash('error_messages', '沒有權限訪問其他帳號頁面！')
+      return res.status(403).send(`<meta http-equiv="refresh" content="2;url=/users/${user.id}"> 沒有權限訪問其他帳號頁面！2秒後即將重新整理`)
+    }
+
     Course.findOne({ where: { userId: user.id } })
       .then((course) => {
         if (course) throw new Error('教師帳號無法進入學生個人頁面')

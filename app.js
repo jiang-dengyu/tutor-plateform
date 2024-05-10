@@ -40,6 +40,7 @@ app.use((req, res, next) => {
   res.locals.error_messages = req.flash('error_messages') // 設定 'warning_msg'
   next()
 })
+
 /****************************************** */
 app.use(passport.initialize())
 app.use(passport.session())
