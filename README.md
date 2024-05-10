@@ -15,6 +15,15 @@
 
 - https://www.notion.so/984cd1f1e73e438c8cdb87187e88b802?pvs=4
 
+## 截圖
+
+![image](https://github.com/jiang-dengyu/tutor-plateform/blob/main/screenshot/%E8%9E%A2%E5%B9%95%E6%93%B7%E5%8F%96%E7%95%AB%E9%9D%A2%202024-05-10%20145534.png)
+![image](https://github.com/jiang-dengyu/tutor-plateform/blob/main/screenshot/%E8%9E%A2%E5%B9%95%E6%93%B7%E5%8F%96%E7%95%AB%E9%9D%A2%202024-05-10%20145754.png)
+![image](https://github.com/jiang-dengyu/tutor-plateform/blob/main/screenshot/%E8%9E%A2%E5%B9%95%E6%93%B7%E5%8F%96%E7%95%AB%E9%9D%A2%202024-05-10%20145804.png)
+![image](https://github.com/jiang-dengyu/tutor-plateform/blob/main/screenshot/%E8%9E%A2%E5%B9%95%E6%93%B7%E5%8F%96%E7%95%AB%E9%9D%A2%202024-05-10%20145840.png)
+![image](https://github.com/jiang-dengyu/tutor-plateform/blob/main/screenshot/%E8%9E%A2%E5%B9%95%E6%93%B7%E5%8F%96%E7%95%AB%E9%9D%A2%202024-05-10%20145812.png)
+![image](https://github.com/jiang-dengyu/tutor-plateform/blob/main/screenshot/%E8%9E%A2%E5%B9%95%E6%93%B7%E5%8F%96%E7%95%AB%E9%9D%A2%202024-05-10%20145852.png)
+
 ## 環境設置
 
 - Node.js
@@ -47,7 +56,7 @@ npm install
 4. 先到 GOOGLE 申請 OAUTH 應用程式服務
 5. 設置.env 檔
    修改 `.env.example` 成 .env，並將內容(SESSION_SECRECT)改成您的資訊
-   除了 SESSION_SECRECT，也要將 GOOGLE_CLIENT_ID 跟 GOOGLE_CLIENT_SECRET 改成您的在前述 GOOGLE.OAUTH 申請到的資訊
+   除了 SESSION_SECRECT，也要將 GOOGLE_CLIENT_ID 跟 GOOGLE_CLIENT_SECRET 改成在前面 GOOGLE.OAUTH 申請到的資訊
 
 6. 確認 config.json 中，development 的"username""password"與您本地 mysql 相符，並在 mysql workbench 中新增 learnez 資料庫,最後執行 npm run sedd 匯入種子檔案
 
@@ -55,12 +64,12 @@ npm install
 npm run seed
 ```
 
-6. 啟動伺服器，執行 app.js 檔案
+7. 啟動伺服器，執行 app.js 檔案
 
 ```
 npm run dev
 ```
 
-7. 當 terminal 出現以下字樣，表示伺服器已啟動
+8. 當 terminal 出現以下字樣，表示伺服器已啟動
 
 > Example app listening on port 3000!
