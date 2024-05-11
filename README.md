@@ -4,7 +4,6 @@
 
 ## 專案內主要使用的技術
 
--
 - 實施 MVC 架構 以及 前後端分離的 API
 - 後端 API 架構下使用 jwt 進行 authenticate
 - MVC 架構下使用 cookie based 方式進行 authenticate
@@ -55,10 +54,11 @@ npm install
 
 4. 先到 GOOGLE 申請 OAUTH 應用程式服務並取得 id 與金鑰
 
-5. 設置.env 檔，並將各個環境變數設定成自己的內容
+5. 設置.env 檔，將各個環境變數設定成自己的內容
    修改 `.env.example` 成 .env：
    SESSION_SECRECT：改成自己設定的字串
    GOOGLE_CLIENT_ID 跟 GOOGLE_CLIENT_SECRET： 改成在前面 GOOGLE.OAUTH 申請到的資訊
+   JWT_SECRET:改成自己設定的字串
 
 6. 確認 config.json 中，development 的"username""password"與您本地 mysql 相符，並在 mysql workbench 中新增 learnez 資料庫,先執行 migration 檔案，再執行 npm run sedd 匯入種子檔案
 
@@ -70,16 +70,16 @@ npm run migrate
 npm run seed
 ```
 
-7. 在 cdm 中設置環境變數 NODE_ENV 為 development
+7. 在 cmd 中設置環境變數 NODE_ENV 為 development
 
 ```
-C:\Users\user\learnez>set NODE_ENV=development
+set NODE_ENV=development
 ```
 
 8. 啟動伺服器，執行 app.js 檔案
 
 ```
-C:\Users\user\learnez>npm run dev
+npm run dev
 ```
 
 9. 當 terminal 出現以下字樣，表示伺服器已啟動
