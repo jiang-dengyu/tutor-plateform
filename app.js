@@ -1,4 +1,4 @@
-if (true) {
+if (process.env.NODE_ENV === 'development') {
   require('dotenv').config()
 }
 const path = require('path')
@@ -9,7 +9,6 @@ const { pages, apis } = require('./routes')
 const handlebars = require('express-handlebars')
 const handlebarsHelpers = require('./helpers/handlebars-helpers')
 const session = require('express-session')
-const SESSION_SECRET = 'BIGSECRET'
 const { getUser } = require('./helpers/auth-helpers.js')
 const passport = require('./config/passport')
 const methodOverride = require('method-override')
@@ -28,7 +27,7 @@ app.use(express.json())
 /*解析session區域********************************** */
 app.use(
   session({
-    secret: SESSION_SECRET,
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false
   })

@@ -5,6 +5,10 @@
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
+    "seed":"npx sequelize db:seed:all",
+    "dseed":"npx sequelize db:seed:undo:all",
+    "migrate":"npx sequelize db:migrate",
+    "dmigrate":"npx sequelize db:migrate:undo:all",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
