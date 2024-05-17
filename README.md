@@ -37,13 +37,13 @@
 1. 先將此專案 Clone 到本地電腦:
 
 ```
-git clone https://github.com/jiang-dengyu/expense-tracker
+git clone https://github.com/jiang-dengyu/tutor-plateform.git
 ```
 
 2. 開啟終端機(Terminal)(windows 需用 cmd, shell 似乎不能)，進入此專案的資料夾
 
 ```
-cd expense-tracker
+cd tutor-plateform
 ```
 
 3. 使用 npm install 指令，安裝 package.json 當中顯示的套件
