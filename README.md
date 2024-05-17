@@ -52,15 +52,19 @@ cd expense-tracker
 npm install
 ```
 
-4. 先到 GOOGLE 申請 OAUTH 應用程式服務並取得 id 與金鑰
+4. 先到 GOOGLE 申請 OAuth2.0 應用程式服務，並在「憑證 →OAuth2.0 用戶端 ID」取得 用戶端編號 id 與 用戶端金鑰
 
-5. 設置.env 檔，將各個環境變數設定成自己的內容
-   修改 `.env.example` 成 .env：
-   SESSION_SECRECT：改成自己設定的字串
-   GOOGLE_CLIENT_ID 跟 GOOGLE_CLIENT_SECRET： 改成在前面 GOOGLE.OAUTH 申請到的資訊
-   JWT_SECRET:改成自己設定的字串
+5. 設置.env 檔，首先將 `.env.example` 修改成 .env，並將內容的各個環境變數設定成自己的內容
 
-6. 確認 config.json 中，development 的"username""password"與您本地 mysql 相符，並在 mysql workbench 中新增 learnez 資料庫,先執行 migration 檔案，再執行 npm run sedd 匯入種子檔案
+   - SESSION_SECRECT：改成自己設定的字串
+   - GOOGLE_CLIENT_ID 跟 GOOGLE_CLIENT_SECRET： 改成在前面 GOOGLE.OAUTH 申請到的資訊
+   - JWT_SECRET:改成自己設定的字串
+
+6. 連線資料庫：：
+
+- 先確認 config.json 中，development 的"username""password"與您本地 mysql sever 設定的內容相符，
+- 在 mysql workbench 中新增 learnez 資料庫(或與 config.json 中的"database"相符),建立後確認 MySQL server 有運行該資料庫
+- 開始執行 migration 檔案(建立 schema)，再執行 npm run sedd 匯入種子檔案
 
 ```
 npm run migrate
@@ -76,7 +80,7 @@ npm run seed
 set NODE_ENV=development
 ```
 
-8. 啟動伺服器，執行 app.js 檔案
+8. 輸入"npm run dev"或是"node app.js" 啟動伺服器，執行 app.js 檔案
 
 ```
 npm run dev

@@ -10,7 +10,7 @@ const reserveController = {
     if (!inTwoWeeks(date)) throw new Error('只能預約兩週內的課程')
     if (!isTimeCorrect(time, duration)) throw new Error('上課開始或結束時間需要在18:00~21:00範圍內')
 
-    Promise.all([Course.findByPk(courseId), Course.findAll({ where: { userId }, raw: true })])
+    Promise.all([Course.findByPk(courseId), Course.findOne({ where: { userId }, raw: true })])
       .then(([course, checkTeacher]) => {
         if (checkTeacher) throw new Error('此帳號為老師 不能夠預約課程')
         if (!inDayOfWeek(date, course.dayOfWeek)) throw new Error('只能課成的開課日')
